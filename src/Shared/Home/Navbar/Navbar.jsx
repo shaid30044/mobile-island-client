@@ -5,6 +5,7 @@ import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import { CgMenuRight } from "react-icons/cg";
 import { useState } from "react";
+import Button from "../../../Components/Button/Button";
 
 const Navbar = () => {
   const pages = [
@@ -64,40 +65,46 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* for small devices */}
+      <div className="flex justify-end items-center">
+        <Link to="/signIn">
+          <Button type={"Sign In"} />
+        </Link>
 
-      <div className="sm:hidden">
-        <button
-          onClick={toggleDrawer}
-          className="btn btn-sm bg-transparent hover:bg-transparent text-2xl shadow-none border-none drawer-button pr-0"
-        >
-          <CgMenuRight />
-        </button>
+        {/* for small devices */}
 
-        <Drawer
-          open={isOpen}
-          onClose={toggleDrawer}
-          direction="top"
-          duration={400}
-          size={300}
-        >
-          <div className="bg-past p-4">
-            <ul className="flex flex-col justify-center items-center gap-6 text-lg bg-white py-10">
-              {pages.map(({ page, path }) => (
-                <li key={page}>
-                  <NavLink
-                    to={path}
-                    className={({ isActive }) =>
-                      isActive ? "border-b-2 border-primary pb-0.5" : ""
-                    }
-                  >
-                    {page}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Drawer>
+        <div className="sm:hidden">
+          <button
+            onClick={toggleDrawer}
+            className="btn btn-sm bg-transparent hover:bg-transparent text-2xl shadow-none border-none drawer-button pr-0"
+          >
+            <CgMenuRight />
+          </button>
+
+          <Drawer
+            open={isOpen}
+            onClose={toggleDrawer}
+            direction="top"
+            duration={400}
+            size={300}
+          >
+            <div className="bg-past p-4">
+              <ul className="flex flex-col justify-center items-center gap-6 text-lg bg-white py-10">
+                {pages.map(({ page, path }) => (
+                  <li key={page}>
+                    <NavLink
+                      to={path}
+                      className={({ isActive }) =>
+                        isActive ? "border-b-2 border-primary pb-0.5" : ""
+                      }
+                    >
+                      {page}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Drawer>
+        </div>
       </div>
     </div>
   );
