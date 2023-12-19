@@ -1,0 +1,25 @@
+li {
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+}
+
+li:after {
+  display: block;
+  content: "";
+  border-bottom: solid 2px #34a043;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+}
+
+li:hover:after {
+  transform: scaleX(1);
+}
+
+li.from-left:after {
+  transform-origin: left;
+}
+
+li.from-right:after {
+  transform-origin: right;
+}
