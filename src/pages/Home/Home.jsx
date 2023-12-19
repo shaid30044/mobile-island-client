@@ -3,6 +3,7 @@ import Navbar from "../../Shared/Navbar/Navbar";
 import Footer from "../../Shared/Footer/Footer";
 import Slides from "../../Components/Home/Slides/Slides";
 import BrandsLogo from "../../Components/Home/BrandsLogo/BrandsLogo";
+import NotFound from "../../Shared/NotFound/NotFound";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <Navbar />
       <Slides />
       <BrandsLogo />
+      <NotFound />
       <Footer />
     </div>
   );
