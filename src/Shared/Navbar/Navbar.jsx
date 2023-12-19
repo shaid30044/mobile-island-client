@@ -1,11 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import "./navbar.css";
-import logo from "../../../assets/logos/logo.png";
+import logo from "../../assets/logos/logo.png";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import { CgMenuRight } from "react-icons/cg";
 import { useState } from "react";
-import Button from "../../../Components/Button/Button";
+import Button from "../../Components/Button/Button";
 
 const Navbar = () => {
   const pages = [
