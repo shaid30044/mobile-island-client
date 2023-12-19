@@ -138,7 +138,7 @@ const Footer = () => {
 
         <div className="flex flex-col items-center md:items-start">
           <p className="text-lg font-semibold text-primary pb-4">
-            Stay up to date on the latest from Phone Verse
+            Stay up to date on the latest from Mobile Island
           </p>
 
           <form
