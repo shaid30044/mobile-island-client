@@ -2,7 +2,15 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        afacad: ["Afacad", "sans-serif"],
+      },
+      colors: {
+        primary: "#34A043",
+        past: "#F0F0F4",
+      },
+    },
   },
   plugins: [require("daisyui")],
 };
