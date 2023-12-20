@@ -184,7 +184,7 @@
       "fast_charging": "45W",
       "wireless_charging": "15W"
     },
-    "operating_system": "Android 12 (upgradable to Android 13)",
+    "operating_system": "Android 12",
     "additional_features": {
       "water_resistance": "IP68",
       "security": "Ultrasonic in-display",
@@ -233,7 +233,7 @@
       "fast_charging": "45W",
       "wireless_charging": "15W"
     },
-    "operating_system": "Android 12 (upgradable to Android 13)",
+    "operating_system": "Android 12",
     "additional_features": {
       "water_resistance": "IP68",
       "security": "Ultrasonic in-display",
@@ -281,7 +281,7 @@
       "fast_charging": "25W",
       "wireless_charging": "15W"
     },
-    "operating_system": "Android 12 (upgradable to Android 13)",
+    "operating_system": "Android 12",
     "additional_features": {
       "water_resistance": "IP68",
       "security": "Ultrasonic in-display",
@@ -738,7 +738,7 @@
       "wireless_charging": "15W",
       "magsafe_charging": true
     },
-    "operating_system": "iOS 16 (upgradable to iOS 17)",
+    "operating_system": "iOS 16",
     "additional_features": {
       "water_resistance": "IP68",
       "security": "Face ID",
@@ -787,7 +787,7 @@
       "wireless_charging": "15W",
       "magsafe_charging": true
     },
-    "operating_system": "iOS 16 (upgradable to iOS 17)",
+    "operating_system": "iOS 16",
     "additional_features": {
       "water_resistance": "IP68",
       "security": "Face ID",
@@ -836,7 +836,7 @@
       "wireless_charging": "15W",
       "magsafe_charging": true
     },
-    "operating_system": "iOS 16 (upgradable to iOS 17)",
+    "operating_system": "iOS 16",
     "additional_features": {
       "water_resistance": "IP68",
       "security": "Face ID",
@@ -884,7 +884,7 @@
       "wireless_charging": "15W",
       "magsafe_charging": true
     },
-    "operating_system": "iOS 16 (upgradable to iOS 17)",
+    "operating_system": "iOS 16",
     "additional_features": {
       "water_resistance": "IP68",
       "security": "Face ID",

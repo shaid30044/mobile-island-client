@@ -3,6 +3,7 @@ import AllMobiles from "../AllMobiles/AllMobiles";
 import Select from "react-select";
 import NotFound from "../../../Shared/NotFound/NotFound";
 import { MdOutlineFilterList } from "react-icons/md";
+import { FaPlus } from "react-icons/fa6";
 import useMobiles from "../../../Hooks/useMobiles";
 
 const options = [
@@ -11,11 +12,21 @@ const options = [
   { value: "lowToHigh", label: "$Low - $High" },
 ];
 
+const osOptions = [
+  { value: "default", label: "All OS" },
+  { value: "Android", label: "Android" },
+  { value: "iOS", label: "iOS" },
+  { value: "HarmonyOS ", label: "HarmonyOS " },
+];
+
 const Filter = () => {
   const [mobiles] = useMobiles();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState(options[0]);
+  const [selectedOS, setSelectedOS] = useState(osOptions[0]);
+  const [isOSAccordionOpen, setIsOSAccordionOpen] = useState(false);
+  const [selectedBrand, setSelectedBrand] = useState("");
 
   const brands = [
     "Samsung",
@@ -30,17 +41,50 @@ const Filter = () => {
     "ZTE",
   ];
 
+  // search functionality
+
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
+
+  // sort by price
 
   const handleSortChange = (selectedOption) => {
     setSortOption(selectedOption);
   };
 
-  const filteredMobiles = mobiles.filter((mobile) =>
-    mobile.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // filter by brand
+
+  const handleBrandClick = (brand) => {
+    setSelectedBrand(brand === selectedBrand ? "" : brand);
+  };
+
+  // filter by OS
+
+  const handleOSChange = (selectedOption) => {
+    setSelectedOS(selectedOption);
+  };
+
+  const filteredMobiles = mobiles.filter((mobile) => {
+    const includesSearchQuery = mobile.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+
+    const includesSelectedOS =
+      !selectedOS ||
+      selectedOS.value === "default" ||
+      mobile.operating_system
+        .toLowerCase()
+        .includes(selectedOS.value.toLowerCase());
+
+    const includesSelectedBrand =
+      !selectedBrand ||
+      mobile.brand.toLowerCase() === selectedBrand.toLowerCase();
+
+    return includesSearchQuery && includesSelectedOS && includesSelectedBrand;
+  });
+
+  // sort mobiles
 
   const sortedMobiles = [...filteredMobiles];
 
@@ -56,7 +100,10 @@ const Filter = () => {
         {brands.map((brand, idx) => (
           <div
             key={idx}
-            className="text-black hover:text-primary duration-300 cursor-pointer"
+            onClick={() => handleBrandClick(brand)}
+            className={`text-black hover:text-primary duration-300 cursor-pointer ${
+              brand === selectedBrand ? "text-primary" : ""
+            }`}
           >
             {brand}
           </div>
@@ -77,6 +124,48 @@ const Filter = () => {
               onChange={handleSortChange}
             />
           </div>
+
+          {/* filter by OS */}
+
+          <div>
+            <div
+              className="flex justify-between items-center border-b-[3px] text-xl border-past pt-4 pb-1 mb-2 cursor-pointer"
+              onClick={() => setIsOSAccordionOpen((prev) => !prev)}
+            >
+              <p>OS</p>
+              <p>
+                <FaPlus
+                  className={`transform inline-block ${
+                    isOSAccordionOpen ? "rotate-135" : "rotate-0"
+                  } transition-transform duration-300`}
+                />
+              </p>
+            </div>
+
+            <div
+              className={`overflow-hidden transition-max-height space-y-1 ${
+                isOSAccordionOpen ? "max-h-96" : "max-h-0"
+              }`}
+            >
+              {osOptions.map((os, idx) => (
+                <div key={idx}>
+                  <label className="flex items-center gap-2 text-lg">
+                    <input
+                      type="checkbox"
+                      id={os.value}
+                      value={os.value}
+                      className="checkbox checkbox-xs"
+                      checked={selectedOS?.value === os.value}
+                      onChange={() => handleOSChange(os)}
+                    />
+                    <span>{os.label}</span>
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>Hello</div>
         </div>
 
         <div className="md:col-span-2 xl:col-span-3">
