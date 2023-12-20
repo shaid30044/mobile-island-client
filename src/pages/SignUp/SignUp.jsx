@@ -95,7 +95,7 @@ const SignUp = () => {
       </div>
 
       <Helmet>
-        <title>Phone Verse | Sign Up</title>
+        <title>Mobile Island | Sign Up</title>
       </Helmet>
 
       <div className="bg-past h-screen p-4">
@@ -103,10 +103,10 @@ const SignUp = () => {
           <div className="relative p-6 lg:px-20 md:py-10">
             {/* logo */}
 
-            <div className="w-6 lg:w-40">
+            <div className="w-40">
               <Link to="/" className="flex items-center gap-2">
                 <img src={logo} alt="logo" className="h-10" />
-                <p className="hidden lg:block text-2xl font-semibold text-primary">
+                <p className="text-2xl font-semibold text-primary">
                   Mobile Island
                 </p>
               </Link>
