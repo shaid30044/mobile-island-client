@@ -21,10 +21,18 @@ const osOptions = [
 
 const memoryOptions = [
   { value: "all", label: "All" },
-  { value: 6, label: "6GB" },
-  { value: 8, label: "8GB" },
-  { value: 12, label: "12GB" },
-  { value: 16, label: "16GB" },
+  { value: 6, label: "6 GB" },
+  { value: 8, label: "8 GB" },
+  { value: 12, label: "12 GB" },
+  { value: 16, label: "16 GB" },
+];
+
+const storageOptions = [
+  { value: "all", label: "All" },
+  { value: 128, label: "128 GB" },
+  { value: 256, label: "256 GB" },
+  { value: 512, label: "512 GB" },
+  { value: 1, label: "1 TB" },
 ];
 
 const Filter = () => {
@@ -37,6 +45,8 @@ const Filter = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [isMemoryAccordionOpen, setIsMemoryAccordionOpen] = useState(false);
   const [selectedMemory, setSelectedMemory] = useState(memoryOptions[0]);
+  const [isStorageAccordionOpen, setIsStorageAccordionOpen] = useState(false);
+  const [selectedStorage, setSelectedStorage] = useState(memoryOptions[0]);
 
   const brands = [
     "Samsung",
@@ -76,8 +86,15 @@ const Filter = () => {
   };
 
   // filter by memory
+
   const handleMemoryChange = (selectedOption) => {
     setSelectedMemory(selectedOption);
+  };
+
+  // filter by memory
+
+  const handleStorageChange = (selectedOption) => {
+    setSelectedStorage(selectedOption);
   };
 
   const filteredMobiles = mobiles.filter((mobile) => {
@@ -101,11 +118,17 @@ const Filter = () => {
       selectedMemory.value === "all" ||
       mobile.ram.capacity.includes(selectedMemory.value);
 
+    const includesSelectedStorage =
+      !selectedStorage ||
+      selectedStorage.value === "all" ||
+      mobile.storage.capacity.includes(selectedStorage.value);
+
     return (
       includesSearchQuery &&
       includesSelectedOS &&
       includesSelectedBrand &&
-      includesSelectedMemory
+      includesSelectedMemory &&
+      includesSelectedStorage
     );
   });
 
@@ -224,6 +247,46 @@ const Filter = () => {
                       onChange={() => handleMemoryChange(memory)}
                     />
                     <span>{memory.label}</span>
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* filter by Memory */}
+
+          <div>
+            <div
+              className="flex justify-between items-center border-b-[3px] text-xl border-past pt-4 pb-1 mb-2 cursor-pointer"
+              onClick={() => setIsStorageAccordionOpen((prev) => !prev)}
+            >
+              <p>Storage</p>
+              <p>
+                <FaPlus
+                  className={`transform inline-block ${
+                    isStorageAccordionOpen ? "rotate-135" : "rotate-0"
+                  } transition-transform duration-300`}
+                />
+              </p>
+            </div>
+
+            <div
+              className={`overflow-hidden transition-max-height space-y-1 ${
+                isStorageAccordionOpen ? "max-h-96" : "max-h-0"
+              }`}
+            >
+              {storageOptions.map((storage, idx) => (
+                <div key={idx}>
+                  <label className="flex items-center gap-2 text-lg">
+                    <input
+                      type="checkbox"
+                      id={storage.value}
+                      value={storage.value}
+                      className="checkbox checkbox-xs"
+                      checked={selectedStorage?.value === storage.value}
+                      onChange={() => handleStorageChange(storage)}
+                    />
+                    <span>{storage.label}</span>
                   </label>
                 </div>
               ))}
