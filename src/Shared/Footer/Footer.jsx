@@ -25,10 +25,6 @@ const Footer = () => {
       page: "Cart",
       path: "/cart",
     },
-    {
-      page: "Blog",
-      path: "/blog",
-    },
   ];
 
   const legals = [

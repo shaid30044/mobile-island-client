@@ -6,6 +6,7 @@ import Mobiles from "../../pages/Mobiles/Mobiles";
 import SignUp from "../../pages/SignUp/SignUp";
 import SignIn from "../../pages/SignIn/SignIn";
 import Mobile from "../../pages/Mobile/Mobile";
+import Cart from "../../pages/Cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -22,10 +23,14 @@ const router = createBrowserRouter([
         element: <Mobiles />,
       },
       {
-        path: "/mobiles/:id",
+        path: "/mobile/:id",
         element: <Mobile />,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/mobiles/${params.id}`),
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
       {
         path: "/signIn",

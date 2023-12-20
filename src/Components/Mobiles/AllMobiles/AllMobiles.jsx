@@ -74,7 +74,7 @@ const AllMobiles = ({ mobile }) => {
           </div>
         </div>
 
-        <Link to={`/mobiles/${mobile._id}`} className="grid grid-cols-1">
+        <Link to={`/mobile/${mobile._id}`} className="grid grid-cols-1">
           <Button type={"Details"} />
         </Link>
       </div>

@@ -20,26 +20,28 @@ const Mobile = () => {
 
       <div className="grid md:grid-cols-2 gap-10 px-4 md:px-10 lg:px-20 py-20">
         <div className="flex justify-center">
-          <img src={mobile.image} alt="" />
-        </div>
+          <div>
+            <img src={mobile.image} alt="" />
 
-        <div className="pt-2">
-          <div className="flex justify-end items-center pb-2">
-            <div className="flex items-center gap-8">
-              <div className="relative bg-cover bg-no-repeat">
-                <button className="btn btn-sm text-xl text-black hover:text-primary rounded-none bg-transparent hover:bg-transparent border-none shadow-none transition duration-500 ease-in-out hover:scale-125 px-0">
-                  <FaRegHeart />
-                </button>
-              </div>
+            <div className="flex justify-center items-center pt-6">
+              <div className="flex justify-between items-center gap-8 w-full">
+                <div className="relative bg-cover bg-no-repeat">
+                  <button className="btn btn-sm text-2xl text-black hover:text-primary rounded-none bg-transparent hover:bg-transparent border-none shadow-none transition duration-500 ease-in-out hover:scale-125 px-0">
+                    <FaRegHeart />
+                  </button>
+                </div>
 
-              <div className="relative bg-cover bg-no-repeat">
-                <button className="btn btn-sm text-xl text-black hover:text-primary rounded-none bg-transparent hover:bg-transparent border-none shadow-none transition duration-500 ease-in-out hover:scale-125 px-0">
-                  <RiShoppingCart2Line />
-                </button>
+                <div className="relative bg-cover bg-no-repeat">
+                  <button className="btn btn-sm text-2xl text-black hover:text-primary rounded-none bg-transparent hover:bg-transparent border-none shadow-none transition duration-500 ease-in-out hover:scale-125 px-0">
+                    <RiShoppingCart2Line />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+        </div>
 
+        <div className="pt-2 md:pt-0">
           <h3 className="text-lg font-medium">{mobile.name}</h3>
 
           <div className="pt-2">

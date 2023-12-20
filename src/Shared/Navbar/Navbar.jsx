@@ -21,10 +21,6 @@ const Navbar = () => {
       page: "Cart",
       path: "/cart",
     },
-    {
-      page: "Blog",
-      path: "/blog",
-    },
   ];
 
   const [isOpen, setIsOpen] = useState(false);
