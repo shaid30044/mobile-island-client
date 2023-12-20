@@ -12,8 +12,17 @@ const options = [
   { value: "lowToHigh", label: "$Low - $High" },
 ];
 
+const processorOptions = [
+  { value: "all", label: "All" },
+  { value: "Snapdragon", label: "Snapdragon" },
+  { value: "Bionic", label: "Bionic" },
+  { value: "MediaTek ", label: "MediaTek " },
+  { value: "Kirin ", label: "Kirin " },
+  { value: "Tensor ", label: "Tensor " },
+];
+
 const osOptions = [
-  { value: "default", label: "All" },
+  { value: "all", label: "All" },
   { value: "Android", label: "Android" },
   { value: "iOS", label: "iOS" },
   { value: "HarmonyOS ", label: "HarmonyOS " },
@@ -40,13 +49,18 @@ const Filter = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState(options[0]);
+  const [selectedProcessor, setSelectedProcessor] = useState(
+    processorOptions[0]
+  );
+  const [isProcessorAccordionOpen, setIsProcessorAccordionOpen] =
+    useState(false);
   const [selectedOS, setSelectedOS] = useState(osOptions[0]);
   const [isOSAccordionOpen, setIsOSAccordionOpen] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [isMemoryAccordionOpen, setIsMemoryAccordionOpen] = useState(false);
   const [selectedMemory, setSelectedMemory] = useState(memoryOptions[0]);
   const [isStorageAccordionOpen, setIsStorageAccordionOpen] = useState(false);
-  const [selectedStorage, setSelectedStorage] = useState(memoryOptions[0]);
+  const [selectedStorage, setSelectedStorage] = useState(storageOptions[0]);
 
   const brands = [
     "Samsung",
@@ -81,6 +95,12 @@ const Filter = () => {
 
   // filter by OS
 
+  const handleProcessorChange = (selectedOption) => {
+    setSelectedProcessor(selectedOption);
+  };
+
+  // filter by OS
+
   const handleOSChange = (selectedOption) => {
     setSelectedOS(selectedOption);
   };
@@ -98,25 +118,44 @@ const Filter = () => {
   };
 
   const filteredMobiles = mobiles.filter((mobile) => {
+    // search functionality
+
     const includesSearchQuery = mobile.name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
 
+    // processor filtering
+
+    const includesSelectedProcessor =
+      !selectedProcessor ||
+      selectedProcessor.value === "all" ||
+      mobile.processor
+        .toLowerCase()
+        .includes(selectedProcessor.value.toLowerCase());
+
+    // os filtering
+
     const includesSelectedOS =
       !selectedOS ||
-      selectedOS.value === "default" ||
+      selectedOS.value === "all" ||
       mobile.operating_system
         .toLowerCase()
         .includes(selectedOS.value.toLowerCase());
+
+    // brand filtering
 
     const includesSelectedBrand =
       !selectedBrand ||
       mobile.brand.toLowerCase() === selectedBrand.toLowerCase();
 
+    // memory filtering
+
     const includesSelectedMemory =
       !selectedMemory ||
       selectedMemory.value === "all" ||
       mobile.ram.capacity.includes(selectedMemory.value);
+
+    // storage filtering
 
     const includesSelectedStorage =
       !selectedStorage ||
@@ -124,6 +163,7 @@ const Filter = () => {
       mobile.storage.capacity.includes(selectedStorage.value);
 
     return (
+      includesSelectedProcessor &&
       includesSearchQuery &&
       includesSelectedOS &&
       includesSelectedBrand &&
@@ -171,6 +211,46 @@ const Filter = () => {
               value={sortOption}
               onChange={handleSortChange}
             />
+          </div>
+
+          {/* filter by OS */}
+
+          <div>
+            <div
+              className="flex justify-between items-center border-b-[3px] text-xl border-past pt-4 pb-1 mb-2 cursor-pointer"
+              onClick={() => setIsProcessorAccordionOpen((prev) => !prev)}
+            >
+              <p>Processor</p>
+              <p>
+                <FaPlus
+                  className={`transform inline-block ${
+                    isProcessorAccordionOpen ? "rotate-135" : "rotate-0"
+                  } transition-transform duration-300`}
+                />
+              </p>
+            </div>
+
+            <div
+              className={`overflow-hidden transition-max-height space-y-1 ${
+                isProcessorAccordionOpen ? "max-h-96" : "max-h-0"
+              }`}
+            >
+              {processorOptions.map((processor, idx) => (
+                <div key={idx}>
+                  <label className="flex items-center gap-2 text-lg">
+                    <input
+                      type="checkbox"
+                      id={processor.value}
+                      value={processor.value}
+                      className="checkbox checkbox-xs"
+                      checked={selectedProcessor?.value === processor.value}
+                      onChange={() => handleProcessorChange(processor)}
+                    />
+                    <span>{processor.label}</span>
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* filter by OS */}
