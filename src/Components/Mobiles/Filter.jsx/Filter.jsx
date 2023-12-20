@@ -1,10 +1,12 @@
 import { useState } from "react";
 import AllMobiles from "../AllMobiles/AllMobiles";
 import Select from "react-select";
+import Drawer from "react-modern-drawer";
 import NotFound from "../../../Shared/NotFound/NotFound";
 import { MdOutlineFilterList } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
 import useMobiles from "../../../Hooks/useMobiles";
+import { NavLink } from "react-router-dom";
 
 const options = [
   { value: "default", label: "Default" },
@@ -61,6 +63,11 @@ const Filter = () => {
   const [selectedMemory, setSelectedMemory] = useState(memoryOptions[0]);
   const [isStorageAccordionOpen, setIsStorageAccordionOpen] = useState(false);
   const [selectedStorage, setSelectedStorage] = useState(storageOptions[0]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setIsOpen((prevState) => !prevState);
+  };
 
   const brands = [
     "Samsung",
@@ -111,7 +118,7 @@ const Filter = () => {
     setSelectedMemory(selectedOption);
   };
 
-  // filter by memory
+  // filter by storage
 
   const handleStorageChange = (selectedOption) => {
     setSelectedStorage(selectedOption);
@@ -184,6 +191,187 @@ const Filter = () => {
 
   return (
     <div>
+      {/* for small devices */}
+
+      <div className="md:hidden fixed z-50 flex justify-center items-center bg-white ring-2 ring-primary rounded-full w-12 h-12">
+        <button
+          onClick={toggleDrawer}
+          className="btn btn-sm bg-transparent hover:bg-transparent text-2xl shadow-none border-none drawer-button"
+        >
+          <MdOutlineFilterList />
+        </button>
+
+        <Drawer
+          open={isOpen}
+          onClose={toggleDrawer}
+          direction="left"
+          duration={400}
+        >
+          <div className="bg-white p-4">
+            {/* filter by processor */}
+
+            <div>
+              <div
+                className="flex justify-between items-center border-b-[3px] text-xl border-past pt-4 pb-1 mb-2 cursor-pointer"
+                onClick={() => setIsProcessorAccordionOpen((prev) => !prev)}
+              >
+                <p>Processor</p>
+                <p>
+                  <FaPlus
+                    className={`transform inline-block ${
+                      isProcessorAccordionOpen ? "rotate-135" : "rotate-0"
+                    } transition-transform duration-300`}
+                  />
+                </p>
+              </div>
+
+              <div
+                className={`overflow-hidden transition-max-height space-y-1 ${
+                  isProcessorAccordionOpen ? "max-h-96" : "max-h-0"
+                }`}
+              >
+                {processorOptions.map((processor, idx) => (
+                  <div key={idx}>
+                    <label className="flex items-center gap-2 text-lg">
+                      <input
+                        type="checkbox"
+                        id={processor.value}
+                        value={processor.value}
+                        className="checkbox checkbox-xs"
+                        checked={selectedProcessor?.value === processor.value}
+                        onChange={() => handleProcessorChange(processor)}
+                      />
+                      <span>{processor.label}</span>
+                    </label>
+                  </div>
+                ))}
+              </div>
+
+              {/* filter by OS */}
+
+              <div>
+                <div
+                  className="flex justify-between items-center border-b-[3px] text-xl border-past pt-4 pb-1 mb-2 cursor-pointer"
+                  onClick={() => setIsOSAccordionOpen((prev) => !prev)}
+                >
+                  <p>OS</p>
+                  <p>
+                    <FaPlus
+                      className={`transform inline-block ${
+                        isOSAccordionOpen ? "rotate-135" : "rotate-0"
+                      } transition-transform duration-300`}
+                    />
+                  </p>
+                </div>
+
+                <div
+                  className={`overflow-hidden transition-max-height space-y-1 ${
+                    isOSAccordionOpen ? "max-h-96" : "max-h-0"
+                  }`}
+                >
+                  {osOptions.map((os, idx) => (
+                    <div key={idx}>
+                      <label className="flex items-center gap-2 text-lg">
+                        <input
+                          type="checkbox"
+                          id={os.value}
+                          value={os.value}
+                          className="checkbox checkbox-xs"
+                          checked={selectedOS?.value === os.value}
+                          onChange={() => handleOSChange(os)}
+                        />
+                        <span>{os.label}</span>
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* filter by Memory */}
+
+              <div>
+                <div
+                  className="flex justify-between items-center border-b-[3px] text-xl border-past pt-4 pb-1 mb-2 cursor-pointer"
+                  onClick={() => setIsMemoryAccordionOpen((prev) => !prev)}
+                >
+                  <p>Memory</p>
+                  <p>
+                    <FaPlus
+                      className={`transform inline-block ${
+                        isMemoryAccordionOpen ? "rotate-135" : "rotate-0"
+                      } transition-transform duration-300`}
+                    />
+                  </p>
+                </div>
+
+                <div
+                  className={`overflow-hidden transition-max-height space-y-1 ${
+                    isMemoryAccordionOpen ? "max-h-96" : "max-h-0"
+                  }`}
+                >
+                  {memoryOptions.map((memory, idx) => (
+                    <div key={idx}>
+                      <label className="flex items-center gap-2 text-lg">
+                        <input
+                          type="checkbox"
+                          id={memory.value}
+                          value={memory.value}
+                          className="checkbox checkbox-xs"
+                          checked={selectedMemory?.value === memory.value}
+                          onChange={() => handleMemoryChange(memory)}
+                        />
+                        <span>{memory.label}</span>
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* filter by Storage */}
+
+              <div>
+                <div
+                  className="flex justify-between items-center border-b-[3px] text-xl border-past pt-4 pb-1 mb-2 cursor-pointer"
+                  onClick={() => setIsStorageAccordionOpen((prev) => !prev)}
+                >
+                  <p>Storage</p>
+                  <p>
+                    <FaPlus
+                      className={`transform inline-block ${
+                        isStorageAccordionOpen ? "rotate-135" : "rotate-0"
+                      } transition-transform duration-300`}
+                    />
+                  </p>
+                </div>
+
+                <div
+                  className={`overflow-hidden transition-max-height space-y-1 ${
+                    isStorageAccordionOpen ? "max-h-96" : "max-h-0"
+                  }`}
+                >
+                  {storageOptions.map((storage, idx) => (
+                    <div key={idx}>
+                      <label className="flex items-center gap-2 text-lg">
+                        <input
+                          type="checkbox"
+                          id={storage.value}
+                          value={storage.value}
+                          className="checkbox checkbox-xs"
+                          checked={selectedStorage?.value === storage.value}
+                          onChange={() => handleStorageChange(storage)}
+                        />
+                        <span>{storage.label}</span>
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Drawer>
+      </div>
+      {/* filter by brand */}
+
       <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 md:gap-x-20 text-lg font-medium bg-white p-4 mb-4">
         {brands.map((brand, idx) => (
           <div
@@ -199,21 +387,13 @@ const Filter = () => {
       </div>
 
       <div className="grid md:grid-cols-3 xl:grid-cols-4 gap-4">
-        <div className="bg-white p-4">
+        <div className="hidden md:block bg-white p-4">
           <div className="flex items-center gap-2 text-2xl pb-4">
             <p>Filter</p>
             <MdOutlineFilterList />
           </div>
 
-          <div className="w-full">
-            <Select
-              options={options}
-              value={sortOption}
-              onChange={handleSortChange}
-            />
-          </div>
-
-          {/* filter by OS */}
+          {/* filter by Processor */}
 
           <div>
             <div
@@ -333,7 +513,7 @@ const Filter = () => {
             </div>
           </div>
 
-          {/* filter by Memory */}
+          {/* filter by Storage */}
 
           <div>
             <div
@@ -390,6 +570,18 @@ const Filter = () => {
           </div>
 
           <div>
+            <div className="bg-white px-4 pt-4">
+              {/* sort by price */}
+
+              <div className="w-48">
+                <Select
+                  options={options}
+                  value={sortOption}
+                  onChange={handleSortChange}
+                />
+              </div>
+            </div>
+
             {sortedMobiles.length === 0 ? (
               <div className="flex justify-center py-10">
                 <NotFound />
