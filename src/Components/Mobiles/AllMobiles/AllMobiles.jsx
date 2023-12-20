@@ -1,6 +1,7 @@
 import { FaRegHeart, FaHeart } from "react-icons/fa6";
 import { RiShoppingCart2Line, RiShoppingCart2Fill } from "react-icons/ri";
 import Button from "../../Button/Button";
+import { Link } from "react-router-dom";
 
 const AllMobiles = ({ mobile }) => {
   return (
@@ -73,9 +74,9 @@ const AllMobiles = ({ mobile }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1">
+        <Link to={`/mobiles/${mobile._id}`} className="grid grid-cols-1">
           <Button type={"Details"} />
-        </div>
+        </Link>
       </div>
     </div>
   );
