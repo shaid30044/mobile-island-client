@@ -1,22 +1,23 @@
 import { Helmet } from "react-helmet-async";
 import Navbar from "../../Shared/Navbar/Navbar";
 import Footer from "../../Shared/Footer/Footer";
-import Slides from "../../Components/Home/Slides/Slides";
-import BrandsLogo from "../../Components/Home/BrandsLogo/BrandsLogo";
 
-const Home = () => {
+const Mobiles = () => {
   return (
     <div>
       <Helmet>
-        <title>Mobile Island</title>
+        <title>Mobile Island | Mobiles</title>
       </Helmet>
 
       <Navbar />
-      <Slides />
-      <BrandsLogo />
+
+      {/* <div className="bg-past px-4 md:px-10 lg:px-20 py-6">
+          <Filter />
+        </div> */}
+
       <Footer />
     </div>
   );
 };
 
-export default Home;
+export default Mobiles;
