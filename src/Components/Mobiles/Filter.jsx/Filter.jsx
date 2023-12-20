@@ -13,10 +13,18 @@ const options = [
 ];
 
 const osOptions = [
-  { value: "default", label: "All OS" },
+  { value: "default", label: "All" },
   { value: "Android", label: "Android" },
   { value: "iOS", label: "iOS" },
   { value: "HarmonyOS ", label: "HarmonyOS " },
+];
+
+const memoryOptions = [
+  { value: "all", label: "All" },
+  { value: 6, label: "6GB" },
+  { value: 8, label: "8GB" },
+  { value: 12, label: "12GB" },
+  { value: 16, label: "16GB" },
 ];
 
 const Filter = () => {
@@ -27,6 +35,8 @@ const Filter = () => {
   const [selectedOS, setSelectedOS] = useState(osOptions[0]);
   const [isOSAccordionOpen, setIsOSAccordionOpen] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState("");
+  const [isMemoryAccordionOpen, setIsMemoryAccordionOpen] = useState(false);
+  const [selectedMemory, setSelectedMemory] = useState(memoryOptions[0]);
 
   const brands = [
     "Samsung",
@@ -65,6 +75,11 @@ const Filter = () => {
     setSelectedOS(selectedOption);
   };
 
+  // filter by memory
+  const handleMemoryChange = (selectedOption) => {
+    setSelectedMemory(selectedOption);
+  };
+
   const filteredMobiles = mobiles.filter((mobile) => {
     const includesSearchQuery = mobile.name
       .toLowerCase()
@@ -81,7 +96,17 @@ const Filter = () => {
       !selectedBrand ||
       mobile.brand.toLowerCase() === selectedBrand.toLowerCase();
 
-    return includesSearchQuery && includesSelectedOS && includesSelectedBrand;
+    const includesSelectedMemory =
+      !selectedMemory ||
+      selectedMemory.value === "all" ||
+      mobile.ram.capacity.includes(selectedMemory.value);
+
+    return (
+      includesSearchQuery &&
+      includesSelectedOS &&
+      includesSelectedBrand &&
+      includesSelectedMemory
+    );
   });
 
   // sort mobiles
@@ -165,7 +190,45 @@ const Filter = () => {
             </div>
           </div>
 
-          <div>Hello</div>
+          {/* filter by Memory */}
+
+          <div>
+            <div
+              className="flex justify-between items-center border-b-[3px] text-xl border-past pt-4 pb-1 mb-2 cursor-pointer"
+              onClick={() => setIsMemoryAccordionOpen((prev) => !prev)}
+            >
+              <p>Memory</p>
+              <p>
+                <FaPlus
+                  className={`transform inline-block ${
+                    isMemoryAccordionOpen ? "rotate-135" : "rotate-0"
+                  } transition-transform duration-300`}
+                />
+              </p>
+            </div>
+
+            <div
+              className={`overflow-hidden transition-max-height space-y-1 ${
+                isMemoryAccordionOpen ? "max-h-96" : "max-h-0"
+              }`}
+            >
+              {memoryOptions.map((memory, idx) => (
+                <div key={idx}>
+                  <label className="flex items-center gap-2 text-lg">
+                    <input
+                      type="checkbox"
+                      id={memory.value}
+                      value={memory.value}
+                      className="checkbox checkbox-xs"
+                      checked={selectedMemory?.value === memory.value}
+                      onChange={() => handleMemoryChange(memory)}
+                    />
+                    <span>{memory.label}</span>
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="md:col-span-2 xl:col-span-3">
