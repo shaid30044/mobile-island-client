@@ -6,7 +6,6 @@ import NotFound from "../../../Shared/NotFound/NotFound";
 import { MdOutlineFilterList } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
 import useMobiles from "../../../Hooks/useMobiles";
-import { NavLink } from "react-router-dom";
 
 const options = [
   { value: "default", label: "Default" },
@@ -206,6 +205,7 @@ const Filter = () => {
           onClose={toggleDrawer}
           direction="left"
           duration={400}
+          className="overflow-scroll"
         >
           <div className="bg-white p-4">
             {/* filter by processor */}
@@ -387,7 +387,7 @@ const Filter = () => {
       </div>
 
       <div className="grid md:grid-cols-3 xl:grid-cols-4 gap-4">
-        <div className="hidden md:block bg-white p-4">
+        <div className="hidden md:block bg-white max-h-[940px] p-4">
           <div className="flex items-center gap-2 text-2xl pb-4">
             <p>Filter</p>
             <MdOutlineFilterList />
